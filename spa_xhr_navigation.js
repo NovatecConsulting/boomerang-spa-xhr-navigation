@@ -9,6 +9,7 @@
 	var impl = {
 		initialized: false,
 		navigationPath: function(){return null;},
+		disableHardNav: false,
 		a: null, //an anchor element to resolve paths
 		onXhrSend: function(xhr_info) {
 			var resultPath = this.navigationPath(xhr_info);
@@ -55,7 +56,7 @@
 				impl.onXhrSend(xhr_info);
 				orig_open.apply(this, open_args);
 				for (var i = 0; i < xhr_header_calls.length; i++) {
-					orig_setRequestHeader.apply(this, boomr_spa_xhr_headers[i]);
+					orig_setRequestHeader.apply(this, xhr_header_calls[i]);
 				}
 				orig_send.apply(this, arguments);
 			};
@@ -87,13 +88,17 @@
 				return this;
 			}
 
-			BOOMR.utils.pluginConfig(impl, config, "spa_xhr_navigation", ["navigationPath"]);
+			BOOMR.utils.pluginConfig(impl, config, "spa_xhr_navigation", ["navigationPath","disableHardNav"]);
 
 			impl.a = document.createElement("a"); //used to resolve paths to URLs
 			initInstrumentation();
 			
 			BOOMR.plugins.SPA.register("XHR_NAVIGATION");
 			BOOMR.plugins.SPA.hook(BOOMR.hasBrowserOnloadFired(), {});
+
+			if (!BOOMR.hasBrowserOnloadFired() && !impl.disableHardNav) {
+				BOOMR.plugins.SPA.route_change();
+			}
 
 			return this;
 		},

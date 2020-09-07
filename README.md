@@ -14,11 +14,13 @@ BOOMR.init({
             //data.url is the URL of the XHR-Request
             //data.method it the used HTTP method
             //data.body it the request content
-            if(data.url.contains("my_nav")) {
+            if(data.url.includes("my_nav")) {
                 return data.url; //navigation with this page url
             }
             return null; //no navigation
-        }
+        },
+		//Optional: Disable to send beacons for the initial page load (Hard Navigation) normally?
+		disableHardNav: false
     }
 });
 ```
