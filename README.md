@@ -39,7 +39,7 @@ This can be used to set the virtual page URL which is used by the beacons in cas
 BOOMR.plugins.spa_xhr_navigation.setVirtualSite("virtual_site");
 ```
 
-Example: assuming the current URL is `http://example.org/index.html` and `setVirtualSite` is invoked using `virtual_site`. This would result in all beacons containing `http://example.org/virtual_site` as the page URL.
+Example: assuming the current URL is `http://example.org/index.html` and `setVirtualSite` is invoked using `virtual_site`. This would result in all beacons containing `http://example.org/virtual_site` as the page URL.
 
 ### Configuration
 
