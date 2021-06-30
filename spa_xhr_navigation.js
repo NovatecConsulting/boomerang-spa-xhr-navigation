@@ -57,7 +57,7 @@
 
       if (resultPath) {
         this.a.href = resultPath;
-        const virtualSiteUrl = this.a.href;
+        var virtualSiteUrl = this.a.href;
         BOOMR.plugins.SPA.route_change();
 
         if (this.useVirtualSites) {
@@ -72,10 +72,10 @@
   /**
    * Instrument the XMLHttpRequest so that requests will trigger a virtual site navigation.
    */
-  const instrumentXhr = function () {
-    const original_XHR = XMLHttpRequest;
+  var instrumentXhr = function () {
+    var original_XHR = XMLHttpRequest;
 
-    const instr_XMLHttpRequest = function () {
+    var instr_XMLHttpRequest = function () {
       var xhr_info = {
         header: {},
       };
@@ -124,12 +124,11 @@
    * Instruments Boomerang's sendBeaconData function so that the current site is injected
    * into the beacon's `u` and `pgu` fields.
    */
-  const instrumentBoomerang = function () {
-    const original_sendBeaconData = BOOMR.sendBeaconData;
+  var instrumentBoomerang = function () {
+    var original_sendBeaconData = BOOMR.sendBeaconData;
 
-    const instr_sendBeaconData = function (data) {
-      console.log("send data", data);
-      const url = BOOMR.window.document.URL;
+    var instr_sendBeaconData = function (data) {
+      var url = BOOMR.window.document.URL;
 
       // in case virtual sites are enabled and a vsite exists
       if (impl.useVirtualSites && impl.currentVirtualSiteUrl) {
@@ -152,7 +151,7 @@
   };
 
   // Initialize insturmentation
-  const initInstrumentation = function () {
+  var initInstrumentation = function () {
     if (impl.useXhrNavigation) {
       instrumentXhr();
     }
